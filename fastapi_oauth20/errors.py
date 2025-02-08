@@ -28,3 +28,9 @@ class RedirectURIError(FastAPIOAuth20BaseError):
     """Redirect URI set error"""
 
     pass
+
+
+class GetUserInfoError(FastAPIOAuth20BaseError):
+    """Get user info api error"""
+
+    pass

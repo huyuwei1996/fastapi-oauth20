@@ -6,7 +6,11 @@ from urllib.parse import urlencode, urljoin
 
 import httpx
 
-from fastapi_oauth20.errors import HTTPXOAuth20Error, RefreshTokenError, RevokeTokenError
+from fastapi_oauth20.errors import (
+    HTTPXOAuth20Error,
+    RefreshTokenError,
+    RevokeTokenError,
+)
 
 
 class OAuth20Base:
@@ -70,7 +74,9 @@ class OAuth20Base:
 
         return authorization_url
 
-    async def get_access_token(self, code: str, redirect_uri: str, code_verifier: str | None = None) -> dict:
+    async def get_access_token(
+        self, code: str, redirect_uri: str, code_verifier: str | None = None
+    ) -> dict:
         """
         Get access token for given.
 
@@ -123,7 +129,9 @@ class OAuth20Base:
 
             return res
 
-    async def revoke_token(self, token: str, token_type_hint: str | None = None) -> None:
+    async def revoke_token(
+        self, token: str, token_type_hint: str | None = None
+    ) -> None:
         """Revoke the access token"""
         if self.revoke_token_endpoint is None:
             raise RevokeTokenError('The revoke token address is missing')
@@ -152,5 +160,7 @@ class OAuth20Base:
 
     @abc.abstractmethod
     async def get_userinfo(self, access_token: str) -> dict:
-        """Get user info"""
+        """Get user info
+        Raise GetUserInfoError if the api error
+        """
         ...
